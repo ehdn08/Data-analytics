@@ -2,7 +2,11 @@
 
 Ubuntu22.02ver, Python3.8, Django
 
-CH1 : 
-데이터 전처리
+데이터 전처리 과정
 
-pip install pandas
+1. 'pandas' 설치 (pip install pandas)
+
+2. pythotn csv 파일을 읽기 위해 데이터 전처리 진행
+
+
+
