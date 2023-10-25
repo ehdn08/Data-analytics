@@ -1,0 +1,8 @@
+경찰청 범죄 발생 통계 데이터 : https://www.data.go.kr/tcs/dss/selectDataSetList.do?keyword=%EB%B2%94%EC%A3%84
+
+Ubuntu22.02ver, Python3.8, Django
+
+CH1 : 
+데이터 전처리
+
+pip install pandas
