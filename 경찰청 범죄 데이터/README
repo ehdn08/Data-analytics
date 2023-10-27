@@ -7,3 +7,5 @@ Ubuntu22.02ver, Python3.8, Django
 1. 'pandas' 설치 (pip install pandas)
 
 2.  csv 파일을 읽기 위해 데이터 전처리 진행
+
+3. test
