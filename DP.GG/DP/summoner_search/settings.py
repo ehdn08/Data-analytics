@@ -120,7 +120,7 @@ STATIC_URL = '/static/'
 
 # 정적 파일 디렉토리 설정
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, '/home/dowoo/DP.GG/DP/summoner_search/img'),
+    '/home/dowoo/Data-analytics/DP.GG/DP/summoner_search/img',
 ]
 
 # Default primary key field type
