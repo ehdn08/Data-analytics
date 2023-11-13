@@ -1,0 +1,176 @@
+<!-- result.html -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            background-color: #3498db;
+            color: #fff;
+            padding: 10px;
+        }
+        h2 {
+            margin-top: 20px;
+            font-size: 24px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        strong {
+            font-weight: bold;
+        }
+        img {
+            max-width: 50px;
+            max-height: 50px;
+        }
+            /* 스타일을 추가할 클래스 정의 */
+        .search-link {
+            text-decoration: none; /* 밑줄 제거 */
+            color: #2e353a; /* 링크 색상 설정 */
+            font-weight: bold; /* 글꼴 굵게 설정 */
+            transition: color 0.3s; /* 색상 전환 효과 추가 */
+        }
+
+        /* 호버 상태일 때의 스타일 */
+        .search-link:hover {
+            color: #1e5799; /* 호버 시 색상 변경 */
+        }
+
+        /* 인게임 정보 버튼 스타일 추가 */
+        .show-game-info-button {
+            padding: 5px 10px;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+    }
+    
+    </style>
+{% load static %} 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>소환사 검색 결과</title>
+
+</head>
+<body>
+    <!-- 링크에 클래스 추가 -->
+<h1><a href="{% url 'search_summoner' %}" class="search-link">소환사 검색 결과</a></h1>
+    <p>소환사명: {{ summoner_data.name }}</p>
+    <p>레벨: {{ summoner_data.summonerLevel }}</p>
+    
+    <!-- 최근 업데이트 시간 정보 표시 -->
+    <p>최근 업데이트 시간: {{ summoner_data.revisionDate|date:"Y-m-d H:i:s" }}</p>
+
+    <!-- 티어와 점수 정보를 반복해서 표시 -->
+<h2>리그 정보</h2>
+<ul>
+    {% for league in league_data %}
+    <li style="display: flex; align-items: center; gap: 10px;">
+            <strong>
+                {% if league.queueType == 'RANKED_SOLO_5x5' %}
+                    솔로랭크
+                {% elif league.queueType == 'RANKED_FLEX_SR' %}
+                    자유랭크
+                {% elif league.queueType == 'RANKED_TFT_DOUBLE_UP' %}
+                    롤토체스
+                {% else %}
+                    기타
+                {% endif %}
+            </strong>
+            <br>
+            <span>
+            티어: {{ league.tier }} {{ league.rank }}<br>
+            점수: {{ league.leaguePoints }} 점<br>
+            승리: {{ league.wins }} / 패배: {{ league.losses }}
+        </span>
+        
+            <!-- 티어 이미지 표시 -->
+            
+            {% if league.tier == 'IRON' %}
+                <img src="{% static 'iron.png' %}" alt="{{ league.tier }}">
+            {% elif league.tier == 'BRONZE' %}
+                <img src="{% static 'bronze.png' %}" alt="{{ league.tier }}">
+            {% elif league.tier == 'SILVER' %}
+                <img src="{% static 'silver.png' %}" alt="{{ league.tier }}">
+            {% elif league.tier == 'GOLD' %}
+                <img src="{% static 'gold.png' %}" alt="{{ league.tier }}">
+            {% elif league.tier == 'PLATINUM' %}
+                <img src="{% static 'platinum.png' %}" alt="{{ league.tier }}">
+            {% elif league.tier == 'EMERALD' %}
+                <img src="{% static 'emerald.png' %}" alt="{{ league.tier }}">
+            {% elif league.tier == 'DIAMOND' %}
+                <img src="{% static 'diamond.png' %}" alt="{{ league.tier }}">
+            {% elif league.tier == 'MASTER' %}
+                <img src="{% static 'master.png' %}" alt="{{ league.tier }}">
+            {% elif league.tier == 'GRANDMASTER' %}
+                <img src="{% static 'grandmaster.png' %}" alt="{{ league.tier }}">
+            {% elif league.tier == 'CHALLENGER' %}
+                <img src="{% static 'challenger.png' %}" alt="{{ league.tier }}">
+            {% endif %}
+        </li>
+    {% endfor %}
+</ul>
+
+{% if current_game_data %}
+  <!-- 인게임 정보 버튼 추가 -->
+  <button id="show-game-info" class="show-game-info-button">인게임 정보 보기</button>
+  <!-- 현재 게임 중인 소환사 정보 -->
+  <div id="game-info" style="display: none;">
+    <h2>Ingame</h2>
+    <p>게임 모드: {{ current_game_data.gameMode }}</p>
+    
+    <!-- 1팀 정보 -->
+    <h3>1팀:</h3>
+    <ul>
+      {% for player in current_game_data.participants %}
+        {% if player.teamId == 100 %}  <!-- 1팀 (teamId 100)인 경우 -->
+          <li>{{ player.summonerName }}</li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+    
+    <!-- 2팀 정보 -->
+    <h3>2팀:</h3>
+    <ul>
+      {% for player in current_game_data.participants %}
+        {% if player.teamId == 200 %}  <!-- 2팀 (teamId 200)인 경우 -->
+          <li>{{ player.summonerName }}</li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+  </div>
+{% else %}
+  <p>현재 게임 중이 아닙니다.</p>
+{% endif %}
+
+
+<!-- JavaScript 코드 추가 -->
+<script>
+    // 인게임 정보 버튼 클릭 시 현재 게임 정보 표시/숨김 토글
+    document.getElementById('show-game-info').addEventListener('click', function () {
+        var gameInfo = document.getElementById('game-info');
+        if (gameInfo.style.display === 'none') {
+            gameInfo.style.display = 'block';
+        } else {
+            gameInfo.style.display = 'none';
+        }
+    });
+</script>
+</body>
+</html>
