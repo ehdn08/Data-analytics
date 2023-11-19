@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Weather Information</title>
+
+    <!-- CSS 링크 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/weather-icons/2.0.9/css/weather-icons.min.css">
+
+    
+    {%load static%}
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/weather.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    
+</head>
+<body class="container" style="position: relative;">
+
+    <!-- Weather Chip -->
+    <div class="chip">
+        <!-- Temperature Row -->
+        <div class="row">
+            <div class="col-5 text-center">
+                <div id="weather-icon" class="icon-container"></div>
+            </div>
+            <div class="col-7">
+                <div class="row">
+                    <div class="col-8">
+                        <h1 class="display-3" id="temp"></h1>
+                    </div>
+                    <!-- Change Temperature Unit -->
+                    <div class="col-2">
+                        <button id="btnCelsius" onclick="getCelsius()" disabled>°C</button>
+                    </div>
+                    <div class="col-2">
+                        <button id="btnFahrenheit" onclick="getFahrenheit()">°F</button>
+                    </div>
+                    <!-- end Change Temperature Unit -->
+                </div>
+                <div class="row">
+                    <h6 id="description"></h6>
+                </div>
+            </div>
+        </div> <!-- end Temperature Row -->
+
+        <!-- 장소 날짜 시간 출력 -->
+        <div class="row">
+            <div class="col text-center">
+                <h3 id="place"></h3>
+                <h3 id="dateTime"></h3>
+            </div>
+        </div> <!-- 장소 날짜 시간 출력 -->
+
+        <!-- Other Weather Details Row -->
+        <div id="otherDetails" class="row">
+            <div class="col text-center">
+                <i class='wi wi-humidity'></i>
+                <h4 id="humidity"></h4>
+            </div>
+            <div class="col text-center">
+                <i class='wi wi-strong-wind'></i>
+                <h4 id="windSpeed"></h4>
+            </div>
+            <div class="col text-center">
+                <i class='wi wi-thermometer'></i>
+                <h4 id="celsius"></h4>
+            </div>
+        </div> <!-- end Other Weather Details Row -->
+    </div> <!-- end Weather Chip -->
+
+    
+     <!-- jQuery -->
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+     <!-- Weather 정보 표시를 위한 스크립트 -->
+     <script>
+         if (navigator.geolocation) {
+             navigator.geolocation.getCurrentPosition(showPosition);
+         } else {
+             alert('Geolocation is not supported in your browser');
+         }
+         
+
+            function showPosition(position) {
+                var api = "https://fcc-weather-api.glitch.me/api/current?lat=" + position.coords.latitude + "&lon=" + position.coords.longitude;
+ 
+             $.getJSON(api, function(data){
+                 // Getting Weather Details
+                 $("#place").html(data.name + ", " + data.sys.country);
+                 $("#windSpeed").html(data.wind.speed + "km/h");
+                 $("#humidity").html(data.main.humidity + "%");
+                 $("#celsius").html(data.main.temp.toFixed(1) + "°C");
+                 $("#temp").html(data.main.temp.toFixed(1));
+                 $("#description").html(data.weather[0].description);
+
+                 // 날씨 설명을 한국어로 변환하여 표시
+                var weatherDescription = translateWeatherDescription(data.weather[0].description);
+                $("#description").html(weatherDescription);
+ 
+                 //Date time
+                 var dt = new Date();
+                 $("#dateTime").html(dt.getFullYear() + "년 " + (dt.getMonth() + 1) + "월 " + dt.getDate() + "일 " + dt.getHours() + "시 " + dt.getMinutes() + "분");
+ 
+                 // Weather Icon Conditions
+                 if(data.weather[0].description.indexOf("clouds")!== -1){
+                     $("#weather-icon").html("<i class='wi wi-day-cloudy' style='font-size: 7em'></i>");
+                 } else if(data.weather[0].description.indexOf("clear sky")!== -1){
+                     $("#weather-icon").html("<i class='wi wi-day-sunny' style='font-size: 7em'></i>");
+                 } else if(data.weather[0].description.indexOf("rain")!== -1){
+                     $("#weather-icon").html("<i class='wi wi-rain-wind' style='font-size: 7em'></i>");
+                 } else if(data.weather[0].description.indexOf("thunderstorm")!== -1){
+                     $("#weather-icon").html("<i class='wi wi-thunderstorm' style='font-size: 7em'></i>");
+                 } else if(data.weather[0].description.indexOf("snow")!== -1){
+                     $("#weather-icon").html("<i class='wi wi-snow' style='font-size: 7em'></i>");
+                 } else if(data.weather[0].description.indexOf("mist")!== -1){
+                     $("#weather-icon").html("<i class='wi wi-fog' style='font-size: 7em'></i>");
+                 }
+                
+             });
+         }
+
+            function translateWeatherDescription(description) {
+                var translations = {
+                "clear sky": "맑음",
+                "few clouds": "구름",
+                "scattered clouds": "구름 조금",
+                "broken clouds": " 흐린날",
+                "shower rain": "소나기",
+                "rain": "비",
+                "thunderstorm": "천둥번개",
+                "snow": "눈",
+                "mist": "안개"
+                // 다른 날씨 상태 추가
+            };
+
+    return translations[description] || description;
+}
+ 
+         
+         function getFahrenheit() {
+             $("#btnCelsius").css("color", "#2d314a");
+             $("#btnFahrenheit").css("color", "#fff");
+             $("#btnCelsius").prop("disabled", false);
+             $("#btnFahrenheit").prop("disabled", true);
+ 
+             $("#temp").html(((parseInt($("#temp").text()) * 1.8) + 32).toFixed(1));
+         }
+ 
+         function getCelsius() {
+             $("#btnCelsius").css("color", "#fff");
+             $("#btnFahrenheit").css("color", "#2d314a");
+             $("#btnCelsius").prop("disabled", true);
+             $("#btnFahrenheit").prop("disabled", false);
+ 
+             $("#temp").html(Math.round((parseInt($("#temp").text()) - 32) / 1.8).toFixed(1));
+         }
+         
+     </script>
+ </body>
+ </html>

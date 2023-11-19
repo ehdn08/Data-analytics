@@ -1,0 +1,78 @@
+<!-- navbar.html -->
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+<ul>
+  <li class="parent">
+      <a href="#"><i class="fas fa-bars"></i></a>
+      </li>
+  
+    <li class="parent">
+      <a href="{% url 'home' %}"></i> Home</a>
+    </li>
+
+    <li class="parent">
+      <a href="#">Link</a>
+      <div class="submenu">
+        <ul class="submenu-list">
+          <li><a href="https://undo2oo.tistory.com">Tistory</a></li>
+          <li><a href="https://github.com/ehdn08/">Github 1</a></li>
+          <li><a href="https://github.com/pyominmin/">Github 2</a></li>
+        </ul>
+      </div>
+    </li>
+
+    <li class="parent">
+      <a href="#">Main</a>
+      <div class="submenu">
+        <ul class="submenu-list">
+          <li><a href="{% url 'weather' %}">날씨</a></li>
+          <li><a href="{% url 'memo' %}">메모</a></li>
+          <li><a href="#">안정함</a></li>
+        </ul>
+      </div>
+    </li>
+    <!-- 추가 메뉴 항목을 동일한 구조로 계속해서 넣어줍니다 -->
+
+
+    <li class="parent">
+      <a href="#">Function</a>
+      <div class="submenu">
+        <ul class="submenu-list">
+          <li><a href="{% url 'board' %}">게시판</a></li>
+          <li><a href="#">휴지통</a></li>
+          <li><a href="#">글쓰기</a></li>
+        </ul>
+      </div>
+    </li>
+
+  <li class="parent">
+    <a href="#">API</a>
+    <div class="submenu">
+      <ul class="submenu-list">
+        <li><a href="#">Kakao</a></li>
+        <li><a href="#">Naver</a></li>
+        <li><a href="#">Google</a></li>
+      </ul>
+    </div>
+  </li>
+
+  <li class="parent">
+    <a href="#">DATA</a>
+    <div class="submenu">
+      <ul class="submenu-list">
+        <li><a href="#">mining</a></li>
+        <li><a href="#">crawling</a></li>
+        <li><a href="#">visualization</a></li>
+      </ul>
+    </div>
+  </li>
+
+</ul>
+
+
+
+
+
+
+  

@@ -1,0 +1,60 @@
+    /* Font import 및 기본 스타일 */
+    @import url('https://fonts.googleapis.com/css?family=Raleway:400,500,800');
+    
+
+    body {
+      margin: 0;
+      font-family: 'Raleway', Arial, sans-serif;
+      background-color: #1f2029;
+      color: white;
+    }
+
+    .submenu {
+      display: none;
+      position: absolute;
+      top: calc(120% + 10px); /* 기존의 top 속성 대신 calc 함수를 사용하여 조정 */
+      left: -20;
+      background: #292a35; /* 드롭다운 메뉴 배경색 변경 */
+      padding: 10px;
+      min-width: 140px;
+      border: 1px solid #3d3f54; /* 테두리 추가 */
+      border-radius: 6px;
+    }
+    .submenu-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .submenu-list li a {
+      color: rgba(255, 255, 255, 0.7); /* 드롭다운 메뉴 텍스트 색상 변경 */
+      text-decoration: none;
+      display: block;
+      padding: 8px 12px;
+    }
+    .submenu-list li a:hover {
+      color: white;
+    }
+    .parent:hover .submenu {
+      display: block;
+    }
+    /* 추가적인 스타일링 */
+    .content {
+      padding: 50px;
+      text-align: center;
+    }
+
+/*시계*/
+.current-time {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    color: white;
+    font-size: 14px;
+  }
+
+
+
+

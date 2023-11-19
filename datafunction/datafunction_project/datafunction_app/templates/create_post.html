@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>글 작성</title>
+    <!-- Include necessary CSS files -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/board.css' %}">
+    <!-- Additional CSS for the create-post section -->
+    <style>
+        /* Adjustments for the create-post section */
+        .create-post {
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        .create-post .container {
+            max-width: 564px;
+            margin: 0 auto;
+        }
+
+        .create-post h2 {
+            font-size: 28px;
+            color: #e6e0e0;
+            font-weight: 400;
+            margin-bottom: 40px;
+        }
+
+        .create-post form {
+            width: 80%;
+            margin: 0 auto;
+            background-color: #1f2029;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .create-post form label {
+            display: block;
+            margin-bottom: 10px;
+            color: #e6e0e0;
+            text-align: left;
+        }
+
+        .create-post form input[type="text"],
+        .create-post form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #272830;
+            color: #e6e0e0;
+        }
+
+        .create-post form textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .create-post form button.button {
+            margin-top: 20px;
+        }
+
+        /* Style for the Submit button */
+        .create-post form button.button {
+            width: 100%;
+            height: 45px;
+            font-family: 'Roboto', sans-serif;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 500;
+            color: #fff;
+            background-color: #3d3f54;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            outline: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .create-post form button.button:hover {
+            background-color: #373737;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        {% include 'navbar.html' %}
+    </div>
+
+    <section class="create-post">
+        <div class="container">
+            <h2>글 작성</h2>
+            <form method="post">
+                {% csrf_token %}
+                <label for="title">제목:</label>
+                <input type="text" id="title" name="title">
+
+                <label for="content">내용:</label>
+                <textarea id="content" name="content"></textarea>
+
+                <button class="button">Submit</button>
+            </form>
+        </div>
+    </section>
+    
+    <div class="current-time" id="current-time">현재 시간: </div>  
+
+
+    <script src="{% static 'js/base.js' %}"></script>
+    <script src="{% static 'js/navbar.js' %}"></script>
+    
+
+    <script>
+        // 폼 제출 시 입력값 확인 및 성공 메시지 표시
+        function validateForm() {
+            var title = document.getElementById('title').value;
+            var content = document.getElementById('content').value;
+    
+            if (title.trim() === '' || content.trim() === '') {
+                alert('제목과 내용을 입력하세요.');
+                return false; // 제출 취소
+            }
+            return true; // 폼 제출
+        }
+    
+        // 폼 제출 이벤트 추가
+        document.querySelector('form').addEventListener('submit', function (event) {
+            if (!validateForm()) {
+                event.preventDefault(); // 제출 취소
+            } else {
+                alert('글 작성이 성공적으로 완료되었습니다.'); // 성공 알림
+            }
+        });
+</script>
+</body>
+</html>

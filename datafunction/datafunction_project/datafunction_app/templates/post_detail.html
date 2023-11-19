@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ post.title }}</title>
+    <!-- Include necessary CSS files -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/board.css' %}">
+    <!-- Additional CSS for the detail section -->
+    <link rel="stylesheet" href="{% static 'css/detail.css' %}">
+</head>
+<body>
+    <div class="navbar">
+        {% include 'navbar.html' %}
+    </div>
+
+    <div class="post-detail">
+        <div class="container">
+            <div class="post-info">
+                <h2>{{ post.title }}</h2>
+                <p class="post-date">작성일: {{ post.created_at }}</p>
+            </div>
+            <div class="post-content">
+                <h3>내용</h3>
+                <p>{{ post.content }}</p>
+            </div>
+            <button class="back-btn" onclick="goBackToBoard()">돌아가기</button>
+        </div>
+    </div>
+
+    <div class="current-time" id="current-time">현재 시간: </div>
+    
+    <script>
+    // 게시판 페이지로 이동하는 함수
+    function goBackToBoard() {
+            window.location.href = "{% url 'board' %}"; // 게시판 페이지 URL로 변경
+        }
+    </script>
+    <script src="{% static 'js/base.js' %}"></script>
+    <script src="{% static 'js/navbar.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+<!-- HTML -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+ <!-- style.css를 연결하는 링크 태그 -->
+ {%load static%}
+ <link rel="stylesheet" href="{% static 'css/style.css' %}">
+ <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+
+
+<div class="navbar">
+  {% include 'navbar.html' %}
+</div>
+
+<div class="current-time" id="current-time">현재 시간: </div>  
+
+<script src="{% static 'js/base.js' %}"></script>
+<script src="{% static 'js/navbar.js' %}"></script>

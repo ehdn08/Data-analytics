@@ -1,0 +1,70 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway:400,500,800');
+
+/* Reset 기본 요소 스타일 */
+body, h1, h2, h3, h4, h5, h6, p, ul, ol {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+body {
+  margin: 0;
+  font-family: 'Raleway', Arial, sans-serif;
+  background-color: #1f2029;
+  color: white;
+}
+
+h1 {
+  font-size: 2em;
+  margin-bottom: 0.5em;
+}
+
+h2 {
+  font-size: 1.5em;
+  margin-bottom: 0.5em;
+}
+
+h3 {
+  font-size: 1.17em;
+  margin-bottom: 0.5em;
+}
+
+h4 {
+  font-size: 1em;
+  margin-bottom: 0.5em;
+}
+
+h5 {
+  font-size: 0.83em;
+  margin-bottom: 0.5em;
+}
+
+h6 {
+  font-size: 0.67em;
+  margin-bottom: 0.5em;
+}
+
+p {
+  margin-bottom: 1em;
+}
+
+ul, ol {
+  margin-bottom: 1em;
+}
+
+/* 기본적인 요소들의 스타일 */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* 표준 마진/패딩 설정 */
+body {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+}

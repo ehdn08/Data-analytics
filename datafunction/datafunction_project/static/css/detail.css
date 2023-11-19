@@ -1,0 +1,62 @@
+/* Updated styling for post-detail to match the previous color scheme */
+.post-detail {
+  padding: 40px 0;
+  text-align: center;
+  background-color: #1f2029;
+  color: #e6e0e0;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.post-info {
+  padding: 20px;
+  border-bottom: 1px solid #57595e;
+}
+
+.post-info h2 {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #e6e0e0;
+}
+
+.post-date {
+  font-size: 14px;
+  color: #ccc;
+}
+
+.post-content {
+  padding: 20px;
+}
+
+.post-content h3 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: #e6e0e0;
+}
+
+.post-content p {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #ccc;
+}
+/* 뒤로 가기 버튼 스타일 */
+.back-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #3d3f54;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+  }
+
+.back-btn:hover {
+  background-color: #373737;
+  }

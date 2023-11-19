@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit</title>
+    <!-- Include necessary CSS files -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/board.css' %}">
+    <link rel="stylesheet" href="{% static 'css/edit_post.css' %}"> <!-- Link the new CSS file -->
+    <style>
+        /* Additional styles for the edit form */
+        .edit-post {
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        .edit-post .container {
+            max-width: 564px;
+            margin: 0 auto;
+        }
+
+        .edit-post h1 {
+            font-size: 28px;
+            color: #e6e0e0;
+            font-weight: 400;
+            margin-bottom: 40px;
+        }
+
+        .edit-post form {
+            width: 80%;
+            margin: 0 auto;
+            background-color: #1f2029;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .edit-post form label {
+            display: block;
+            margin-bottom: 10px;
+            color: #e6e0e0;
+            text-align: left;
+        }
+
+        .edit-post form input[type="text"],
+        .edit-post form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #272830;
+            color: #e6e0e0;
+        }
+
+        .edit-post form textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        /* Style for the Submit button */
+        .edit-post form button[type="submit"] {
+            width: 100%;
+            height: 45px;
+            font-family: 'Roboto', sans-serif;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 500;
+            color: #fff;
+            background-color: #3d3f54;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            outline: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .edit-post form button[type="submit"]:hover {
+            background-color: #373737;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        {% include 'navbar.html' %}
+    </div>
+
+    <section class="edit-post">
+        <div class="container">
+            <h1>수정</h1>
+            <form method="post">
+                {% csrf_token %}
+                <label for="id_title">제목:</label>
+                {{ form.title }}
+                <label for="id_content">내용:</label>
+                {{ form.content }}
+                <button type="submit">수정</button>
+            </form>
+        </div>
+    </section>
+
+    <div class="current-time" id="current-time">Current Time: </div>
+
+    <script src="{% static 'js/base.js' %}"></script>
+    <script src="{% static 'js/navbar.js' %}"></script>
+</body>
+</html>

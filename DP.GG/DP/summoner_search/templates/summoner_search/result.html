@@ -1,4 +1,10 @@
-<!-- result.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>소환사 검색 결과</title>
+    
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -58,25 +64,14 @@
     </style>
 {% load static %} 
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-
-    <title>소환사 검색 결과</title>
-
 </head>
 <body>
     <!-- 링크에 클래스 추가 -->
 <h1><a href="{% url 'search_summoner' %}" class="search-link">소환사 검색 결과</a></h1>
     <p>소환사명: {{ summoner_data.name }}</p>
     <p>레벨: {{ summoner_data.summonerLevel }}</p>
-    
-    <!-- 최근 업데이트 시간 정보 표시 -->
-    <p>최근 업데이트 시간: {{ summoner_data.revisionDate|date:"Y-m-d H:i:s" }}</p>
 
+    
     <!-- 티어와 점수 정보를 반복해서 표시 -->
 <h2>리그 정보</h2>
 <ul>
@@ -135,25 +130,47 @@
     <h2>Ingame</h2>
     <p>게임 모드: {{ current_game_data.gameMode }}</p>
     
-    <!-- 1팀 정보 -->
-    <h3>1팀:</h3>
-    <ul>
-      {% for player in current_game_data.participants %}
-        {% if player.teamId == 100 %}  <!-- 1팀 (teamId 100)인 경우 -->
-          <li>{{ player.summonerName }}</li>
-        {% endif %}
-      {% endfor %}
-    </ul>
-    
-    <!-- 2팀 정보 -->
-    <h3>2팀:</h3>
-    <ul>
-      {% for player in current_game_data.participants %}
-        {% if player.teamId == 200 %}  <!-- 2팀 (teamId 200)인 경우 -->
-          <li>{{ player.summonerName }}</li>
-        {% endif %}
-      {% endfor %}
-    </ul>
+<!-- 1팀 정보 -->
+<h3>1팀:</h3>
+<ul>
+  {% for player in current_game_data.participants %}
+    {% if player.teamId == 100 %}
+      <li>
+        {{ player.summonerName }} - 
+        {% with player.summonerId as player_summoner_id %}
+          {% for tier_data in opponent_tier_data %}
+            {% if tier_data.summonerId == player_summoner_id %}
+              티어: {{ tier_data.tier }} 
+              {{ tier_data.rank }} 
+              ({{ tier_data.leaguePoints }} LP)
+            {% endif %}
+          {% endfor %}
+        {% endwith %}
+      </li>
+    {% endif %}
+  {% endfor %}
+</ul>
+
+<!-- 2팀 정보 -->
+<h3>2팀:</h3>
+<ul>
+  {% for player in current_game_data.participants %}
+    {% if player.teamId == 200 %}
+      <li>
+        {{ player.summonerName }} - 
+        {% with player.summonerId as player_summoner_id %}
+          {% for tier_data in opponent_tier_data %}
+            {% if tier_data.summonerId == player_summoner_id %}
+              티어: {{ tier_data.tier }} 
+              {{ tier_data.rank }} 
+              ({{ tier_data.leaguePoints }} LP)
+            {% endif %}
+          {% endfor %}
+        {% endwith %}
+      </li>
+    {% endif %}
+  {% endfor %}
+</ul>
   </div>
 {% else %}
   <p>현재 게임 중이 아닙니다.</p>

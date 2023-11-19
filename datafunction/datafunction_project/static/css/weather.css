@@ -1,0 +1,84 @@
+body {
+    background: #232840;
+    color: #fff;
+    font-family: 'weathericons';
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+button {
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 30px;
+}
+
+.chip {
+    width: 500px;
+    background: #131521;
+    padding: 50px;
+    position: relative;
+    top: 80px;
+    margin: 0 auto;
+    border-radius: 4px;
+}
+
+.chip .row {
+    width: 100%;
+    margin: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.chip .row h6 {
+    margin: 0;
+}
+
+#description {
+    margin-top: -10px;
+}
+
+.chip .row:last-child {
+    margin-top: 30px;
+}
+
+.wi {
+    font-size: 1em;
+    margin-right: 10px;
+    flex-shrink: 0;
+}
+
+#weather-icon,
+#btnFahrenheit {
+    color: #2d314a;
+    font-size: 2em;
+}
+
+#description {
+    position: relative;
+    font-size: 24px;
+    top: -15px;
+    left: 20px;
+}
+
+#otherDetails {
+    margin-top: 20px;
+    color: #2d314a;
+}
+
+/* 추가된 부분 */
+.icon-container {
+    font-size: 1em;
+}
+
+#otherDetails .wi {
+    font-size: 4em;
+}
