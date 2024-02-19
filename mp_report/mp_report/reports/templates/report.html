@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>유저신고</title>
+    <style>
+    :root {
+        /* Theme */
+        --primary-color: #917efa; /* Primary color for selected state */
+        --light-color: #f8f9fa; /* Light background color for labels */
+        --dark-color: #343a40; /* Dark text color */
+        --hover-color: #fcfcfc; /* Hover state color */
+        --border-radius: 25px; /* Border radius for rounded corners */
+        --transition-speed: 0.3s; /* Transition speed for hover effects */
+    }
+
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: '나눔고딕', sans-serif;
+            gap: 2rem;
+            width: 100%;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            font-family: var(--regular-font);
+            background: rgba(154, 57, 163, 1);
+            background: -moz-linear-gradient(-45deg, rgba(154, 57, 163, 1) 0%, rgba(65, 103, 168, 1) 100%);
+            background: -webkit-gradient(left top, right bottom, color-stop(0%, rgba(154, 57, 163, 1)), color-stop(100%, rgba(65, 103, 168, 1)));
+            background: -webkit-linear-gradient(-45deg, rgba(154, 57, 163, 1) 0%, rgba(65, 103, 168, 1) 100%);
+            background: -o-linear-gradient(-45deg, rgba(154, 57, 163, 1) 0%, rgba(65, 103, 168, 1) 100%);
+            background: -ms-linear-gradient(-45deg, rgba(154, 57, 163, 1) 0%, rgba(65, 103, 168, 1) 100%);
+            background: linear-gradient(135deg, rgba(154, 57, 163, 1) 0%, rgba(65, 103, 168, 1) 100%);
+            filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#9a39a3', endColorstr='#4167a8', GradientType=1);
+            color: var(--light-color);
+        }
+
+        .card {
+            background: radial-gradient(circle, #080808 0%, #333333 100%);
+            color: var(--light-color);
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .header {
+            margin-bottom: 2rem;
+        }
+
+        .report-container {
+            display: flex;
+        }
+
+        .character-image {
+            width: 120px; /* 이미지를 조금 더 크게 만듭니다. */
+            height: 120px;
+            object-fit: contain; /* 이미지가 잘리지 않고 온전히 보이도록 설정합니다. */
+            border-radius: 10px; /* 사각형 모양의 테두리를 적용합니다. */
+            margin-bottom: 10px;
+        }
+
+        .report-details {
+            flex: 1;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+
+
+        label {
+            margin-bottom: 0.5rem;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        textarea,
+        input[type="submit"] {
+            margin-bottom: 1rem;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            border: none;
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            font-family: var(--regular-font);
+            font-size: 1rem;
+            outline: none;
+        }
+
+        input[type="submit"] {
+            padding: 12px 24px;
+            background-color: #917efa; /* 녹색 계열 */
+            color: white;
+            border: none;
+            border-radius: 30px; /* 둥근 모서리 */
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #917efac5; /* 호버 시 색상 변경 */
+        }
+        
+        
+        .tags {
+            list-style-type: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .tags li {
+            margin: 5px;
+        }
+
+
+        .report-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 2rem;
+        }
+
+        .report-box {
+            width: 300px;
+            padding: 1rem;
+            border: 2px solid var(--light-color);
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+
+        .report-text {
+            margin-top: 1rem;
+            text-align: center;
+        }
+
+        .tags input[type="radio"] {
+            display: none; /* Hide the radio button */
+    }
+
+        .tags label {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            margin: 5px;
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: all var(--transition-speed);
+            border: 2px solid transparent; /* Transparent border for a smooth transition */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .tags input[type="radio"]:checked + label {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--hover-color); /* Slightly darker border for selected tags */
+        }
+
+        .tags label:hover {
+            background-color: var(--hover-color);
+            color: rgb(0, 0, 0);
+            transform: translateY(-2px); /* Slight lift effect on hover */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+    </style>
+</head>
+
+<body>
+    
+    <div class="card">
+        <div class="report-container">
+            <a href="/home/">
+                <img src="{% static 'egg.png' %}" alt="Character Image" class="character-image">
+            </a>
+            <div class="report-text">
+            </div>
+        </div>
+
+        <form method="post">
+            {% csrf_token %}
+
+            <div id="tag-selection">
+                <ul class="tags">
+                    <!-- 라디오 버튼 형태의 태그 선택 영역 -->
+                    <li>
+                        <input type="radio" id="tag-사기" name="selectedTag" value="사기">
+                        <label for="tag-사기">사기</label>
+                    </li>
+                    <li>
+                        <input type="radio" id="tag-사행성" name="selectedTag" value="사행성">
+                        <label for="tag-사행성">사행성</label>
+                    </li>
+                    <li>
+                        <input type="radio" id="tag-스틸" name="selectedTag" value="스틸">
+                        <label for="tag-스틸">스틸</label>
+                    </li>
+                    <li>
+                        <input type="radio" id="tag-광고" name="selectedTag" value="광고">
+                        <label for="tag-광고">광고</label>
+                    </li>
+                    <li>
+                        <input type="radio" id="tag-현금 거래" name="selectedTag" value="현금 거래">
+                        <label for="tag-현금 거래">현금 거래</label>
+                    </li>
+                    <li>
+                        <input type="radio" id="tag-불법 프로그램" name="selectedTag" value="불법 프로그램">
+                        <label for="tag-불법 프로그램">불법 프로그램</label>
+                    </li>
+                </ul>
+            </div>
+
+            <label for="report_date">신고 날짜:</label>
+            <input type="date" id="report_date" name="report_date" required>
+
+            <label for="nickname">메이플 닉네임:</label>
+            <input type="text" id="nickname" name="nickname" required>
+            
+            <label for="level" style="margin-bottom: 0.5rem;">레벨:</label>
+            <input type="number" id="level" name="level" min="1" max="200" required style="margin-bottom: 1rem; border-radius: 10px; padding: 0.5rem;">
+
+
+            <label for="job" style="margin-bottom: 0.5rem;">직업:</label>
+            <select id="job_select" name="job" style="margin-bottom: 1rem; border-radius: 10px; padding: 0.5rem;">
+                {% for job_choice in job_choices %}
+                    <option value="{{ job_choice.0 }}">{{ job_choice.1 }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="discord_nickname">디스코드 닉네임:</label>
+            <input type="text" id="discord_nickname" name="discord_nickname" placeholder="[공백허용] 온도#1234">
+
+            <label for="scam_detail">설명:</label>
+            <textarea id="scam_detail" name="scam_detail" placeholder="[공백허용]"></textarea>
+            
+            <input type="submit" value="신고하기">
+
+        </form>
+    </div>
+</body>
+
+<script>
+document.querySelector('form').addEventListener('submit', function(e) {
+    e.preventDefault(); // 폼의 기본 제출 방지
+
+    var formData = new FormData(this);
+
+    fetch(this.action, {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-CSRFToken': document.querySelector('input[name="csrfmiddlewaretoken"]').value
+        },
+    })
+    .then(response => {
+        if (!response.ok) {
+            // 응답이 OK가 아니면 에러 메시지를 추출하여 처리
+            return response.json().then(data => {
+                throw new Error(data.message);
+            });
+        }
+        return response.json(); // 정상 응답 처리
+    })
+    .then(data => {
+        alert(data.message); // 성공 메시지 표시
+        window.location.href = '/home/'; // 홈으로 리다이렉트
+    })
+    .catch(error => {
+        alert(error.message); // 에러 메시지 표시
+    });
+});
+
+    document.querySelector('#job_select').addEventListener('change', function(e) {
+    // 선택한 값에 대한 작업 수행
+});
+</script>
+
+</html>

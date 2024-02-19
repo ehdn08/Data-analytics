@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>캐릭터 정보</title>
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: '나눔고딕', sans-serif;
+            gap: 2rem;
+            width: 100%;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            background: rgba(154, 57, 163, 1);
+            background: -moz-linear-gradient(-45deg, rgba(154, 57, 163, 1) 0%, rgba(65, 103, 168, 1) 100%);
+            background: -webkit-gradient(left top, right bottom, color-stop(0%, rgba(154, 57, 163, 1)), color-stop(100%, rgba(65, 103, 168, 1)));
+            background: -webkit-linear-gradient(-45deg, rgba(154, 57, 163, 1) 0%, rgba(65, 103, 168, 1) 100%);
+            background: -o-linear-gradient(-45deg, rgba(154, 57, 163, 1) 0%, rgba(65, 103, 168, 1) 100%);
+            background: -ms-linear-gradient(-45deg, rgba(154, 57, 163, 1) 0%, rgba(65, 103, 168, 1) 100%);
+            background: linear-gradient(135deg, rgba(154, 57, 163, 1) 0%, rgba(65, 103, 168, 1) 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#9a39a3', endColorstr='#4167a8', GradientType=1);
+            color: #fff;
+        }
+
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px; /* Adjust the gap as needed */
+            padding: 20px;
+        }
+
+        .profile-card {
+            background-color: #000000a1;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            width: 350px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .profile-header {
+            margin-bottom: 20px;
+        }
+
+        .profile-header h2 {
+            color: #ffffff;
+            margin-bottom: 10px;
+            font-size: 24px;
+        }
+
+        .tag-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .tag {
+            background-color: #ff000081;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            margin: 5px;
+        }
+
+        .profile-info {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        .profile-info-item {
+            margin-bottom: 10px;
+        }
+
+        .profile-info-item label {
+            font-weight: bold;
+            color: #ffffff;
+            margin-right: 5px;
+        }
+
+        .profile-info-item span {
+            color: #ffffff;
+            font-weight: bold;
+        }
+
+        button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .profile-picture {
+        width: 100px;
+        height: 100px;
+        margin-bottom: 10px;
+        margin: auto;
+        background-size: contain; /* 이미지가 요소에 맞춰지도록 설정 */
+        background-position: center; /* 이미지를 가운데 정렬 */
+        background-repeat: no-repeat; /* 이미지가 반복되지 않도록 설정 */
+
+    }
+
+        .separator {
+            width: 100%;
+            height: 1px;
+            background-color: #ccc;
+            margin-bottom: 20px;
+        }
+
+        /* 디스코드 닉네임 */
+        .profile-header p {
+            color: #ffffff;
+            font-weight: bold;
+            font-size: 12px;
+        }
+
+        .details-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+
+        .details-button:hover {
+            background-color: #0056b3;
+        }
+
+        h1 {
+            text-align: center;
+            color: #fff;
+            font-size: 36px;
+            margin-top: 20px;
+            padding: 20px;
+            background: linear-gradient(to right, #d6a1e623, #a0d4ff1e);
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <a href="/home/" style="text-decoration: none; color: inherit;">
+            <h1 style="text-align: center;">메인으로 이동</h1>
+        </a>
+        {% if results %}
+        <div class="card-container">
+            {% for user in results|slice:":4" %}
+        <!-- 사용자 프로필 카드 예시 -->
+        <div class="profile-card">
+            <div class="profile-picture" style="background-image: url('{% static 'user.png' %}');"></div>
+                <div class="profile-header">
+                    <h2>{{ user.nickname }}</h2>
+                    <p>{{ user.discord_nickname }}</p>
+                    <div class="tag-list">
+                        {% for tag in user.tags.all %}
+                        <span class="tag">{{ tag.name }}</span>
+                        {% endfor %}
+                    </div>
+                    <div class="profile-info-item">
+                        <label>레벨 </label>
+                        <span>{{ user.level }}</span>
+                        <label>직업 </label>
+                        <span>{{ user.job }}</span>
+                    </div>
+                </div>
+                <div class="separator"></div>
+                
+                <form action="{% url 'report_user' user.id %}" method="post">
+                    {% csrf_token %}
+                    <!--<button type="submit" style="margin: 0.2rem 0;">인기도 내리기</button> !--> <!--개발중-->
+                </form>
+                <a href="{% url 'scam_records' user.id %}" class="details-button">정보보기</a>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p>검색 결과가 없습니다.</p>
+        {% endif %}
+    </div>
+
+    <script>
+    </script>
+</body>
+</html>

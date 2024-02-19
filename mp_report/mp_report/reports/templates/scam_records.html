@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>세부정보</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: '나눔고딕', sans-serif;
+            gap: 2rem;
+            width: 100%;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            background: rgba(154, 57, 163, 1);
+            background: -moz-linear-gradient(-45deg, rgba(154, 57, 163, 1) 0%, rgba(65, 103, 168, 1) 100%);
+            background: -webkit-gradient(left top, right bottom, color-stop(0%, rgba(154, 57, 163, 1)), color-stop(100%, rgba(65, 103, 168, 1)));
+            background: -webkit-linear-gradient(-45deg, rgba(154, 57, 163, 1) 0%, rgba(65, 103, 168, 1) 100%);
+            background: -o-linear-gradient(-45deg, rgba(154, 57, 163, 1) 0%, rgba(65, 103, 168, 1) 100%);
+            background: -ms-linear-gradient(-45deg, rgba(154, 57, 163, 1) 0%, rgba(65, 103, 168, 1) 100%);
+            background: linear-gradient(135deg, rgba(154, 57, 163, 1) 0%, rgba(65, 103, 168, 1) 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#9a39a3', endColorstr='#4167a8', GradientType=1);
+            color: #fff;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 200vh;
+            padding: 20px;
+            width: 80%; /* Adjusted width */
+        }
+
+        .nickname {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+            cursor: pointer; /* Add cursor pointer to indicate clickable element */
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #333; /* Dark background color */
+            color: #fff; /* White text color */
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            font-weight: normal; /* Remove bold font weight */
+            border-bottom: 1px solid #000000; /* Add border-bottom to create separator line */
+            border-right: 1px solid #000000; /* Add border-right to create vertical line */
+        }
+        
+
+        th:first-child {
+            width: 20%; /* Adjusted width for "신고 날짜" column */
+        }
+
+        th:last-child {
+            width: 80%; /* Adjusted width for "상세 정보" column */
+        }
+
+        th {
+            position: relative; /* Add relative positioning */
+            background-color: #222; /* Darker background color for header row */
+            font-weight: bold; /* Bold font weight for header row */
+            text-transform: uppercase;
+        }
+
+        tr:nth-child(even) {
+            background-color: #444; 
+        }
+
+        tr:hover {
+            background-color: #555; /* Dark background color on hover */
+        }
+
+        td {
+            padding: 12px;
+            text-align: left;
+            font-weight: normal; /* Remove bold font weight */
+            border-bottom: 1px solid #000000; /* Add border-bottom to create separator line */
+            border-right: 1px solid #000000; /* Add border-right to create vertical line */
+        }
+
+        h1 {
+            text-align: center;
+            color: #fff;
+            font-size: 36px;
+            margin-top: 20px;
+            padding: 20px;
+            background: linear-gradient(to right, #d6a1e623, #a0d4ff1e);
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 수정된 부분 -->
+
+        <h1 class="nickname" onclick="goBack()"> {{ user.nickname }} 유저 프로필로 돌아가기 </h1>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>신고 날짜</th>
+                    <th>상세 정보</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for record in scam_records %}
+                <tr>
+                    <td>{{ record.report_date|date:"Y년 n월 j일" }}</td>
+                    <td>{{ record.scam_detail }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        
+    </div>
+
+    <script>
+        function goBack() {
+            window.history.back(); // 이전 페이지로 이동
+        }
+    </script>
+</body>
+</html>
